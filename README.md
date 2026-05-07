@@ -9,7 +9,7 @@ Automated social ad creative generation using OpenAI `gpt-image-1`. Accepts a ca
 ### 1. Clone
 
 ```bash
-git clone https://github.com/your-username/creative-automation-pipeline.git
+git clone https://github.com/0xaiwhisperer/creative-automation-pipeline.git
 cd creative-automation-pipeline
 ```
 
