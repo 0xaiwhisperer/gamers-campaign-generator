@@ -1,0 +1,101 @@
+{
+  "run_id": "93f693ab",
+  "status": "done",
+  "brief": "brief_robot_companion.json",
+  "product": null,
+  "started_at": "2026-05-07T14:20:40.268936",
+  "output_dir": "C:\\Users\\Qubit\\Downloads\\creative-automation-pipeline (2)\\cap2\\outputs\\run_20260507_142040_93f693ab",
+  "error": null,
+  "results": [
+    {
+      "product": "Pip Robot Companion",
+      "game": "Space Explorer",
+      "ratio": "1x1",
+      "path": "C:\\Users\\Qubit\\Downloads\\creative-automation-pipeline (2)\\cap2\\outputs\\run_20260507_142040_93f693ab\\Pip Robot Companion\\Space_Explorer\\1x1\\final.png",
+      "legal_issues": [],
+      "brand_compliance": {
+        "passed": true,
+        "issues": []
+      },
+      "canvas_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "product": "Pip Robot Companion",
+      "game": "Space Explorer",
+      "ratio": "9x16",
+      "path": "C:\\Users\\Qubit\\Downloads\\creative-automation-pipeline (2)\\cap2\\outputs\\run_20260507_142040_93f693ab\\Pip Robot Companion\\Space_Explorer\\9x16\\final.png",
+      "legal_issues": [],
+      "brand_compliance": {
+        "passed": true,
+        "issues": []
+      },
+      "canvas_size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "product": "Pip Robot Companion",
+      "game": "Space Explorer",
+      "ratio": "16x9",
+      "path": "C:\\Users\\Qubit\\Downloads\\creative-automation-pipeline (2)\\cap2\\outputs\\run_20260507_142040_93f693ab\\Pip Robot Companion\\Space_Explorer\\16x9\\final.png",
+      "legal_issues": [],
+      "brand_compliance": {
+        "passed": true,
+        "issues": []
+      },
+      "canvas_size": [
+        1536,
+        1024
+      ]
+    },
+    {
+      "product": "Pip Robot Companion",
+      "game": "Enchanted Forest",
+      "ratio": "1x1",
+      "path": "C:\\Users\\Qubit\\Downloads\\creative-automation-pipeline (2)\\cap2\\outputs\\run_20260507_142040_93f693ab\\Pip Robot Companion\\Enchanted_Forest\\1x1\\final.png",
+      "legal_issues": [],
+      "brand_compliance": {
+        "passed": true,
+        "issues": []
+      },
+      "canvas_size": [
+        1024,
+        1024
+      ]
+    },
+    {
+      "product": "Pip Robot Companion",
+      "game": "Enchanted Forest",
+      "ratio": "9x16",
+      "path": "C:\\Users\\Qubit\\Downloads\\creative-automation-pipeline (2)\\cap2\\outputs\\run_20260507_142040_93f693ab\\Pip Robot Companion\\Enchanted_Forest\\9x16\\final.png",
+      "legal_issues": [],
+      "brand_compliance": {
+        "passed": true,
+        "issues": []
+      },
+      "canvas_size": [
+        1024,
+        1536
+      ]
+    },
+    {
+      "product": "Pip Robot Companion",
+      "game": "Enchanted Forest",
+      "ratio": "16x9",
+      "path": "C:\\Users\\Qubit\\Downloads\\creative-automation-pipeline (2)\\cap2\\outputs\\run_20260507_142040_93f693ab\\Pip Robot Companion\\Enchanted_Forest\\16x9\\final.png",
+      "legal_issues": [],
+      "brand_compliance": {
+        "passed": true,
+        "issues": []
+      },
+      "canvas_size": [
+        1536,
+        1024
+      ]
+    }
+  ]
+}

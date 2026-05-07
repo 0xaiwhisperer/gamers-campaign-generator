@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FruityBurst · Campaign Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --candy-red:    #ff2d55;
+  --candy-yellow: #ffd60a;
+  --candy-pink:   #ff6b9d;
+  --candy-cyan:   #00e5ff;
+  --candy-purple: #bf5af2;
+  --candy-green:  #30d158;
+  --bg:           #060608;
+  --bg2:          #0d0d12;
+  --bg3:          #13131a;
+  --panel:        #0f0f16;
+  --panel2:       #161620;
+  --border:       rgba(255,255,255,0.06);
+  --text:         #f0f0ff;
+  --text-dim:     #8888aa;
+  --text-faint:   #44445a;
+  --radius:       8px;
+  --radius-lg:    14px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:14px;line-height:1.5;min-height:100vh;overflow-x:hidden;cursor:crosshair}
+body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.07) 2px,rgba(0,0,0,0.07) 4px);pointer-events:none;z-index:9999}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,214,10,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,214,10,0.025) 1px,transparent 1px);background-size:44px 44px;pointer-events:none;z-index:0;animation:gridDrift 25s linear infinite}
+@keyframes gridDrift{0%{background-position:0 0}100%{background-position:44px 44px}}
+.app{display:grid;grid-template-columns:320px 1fr;min-height:100vh;position:relative;z-index:1}
+
+/* SIDEBAR */
+.sidebar{background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--candy-yellow) transparent}
+.sidebar::-webkit-scrollbar{width:3px}
+.sidebar::-webkit-scrollbar-thumb{background:var(--candy-yellow);border-radius:2px}
+.sidebar-header{padding:22px 20px 18px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
+.sidebar-header::before{content:'';position:absolute;top:-30px;left:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,214,10,0.1) 0%,transparent 70%);pointer-events:none}
+.logo-lockup{display:flex;align-items:center;gap:12px;margin-bottom:8px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--candy-yellow),#ff9500);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 0 24px rgba(255,214,10,0.5),0 0 48px rgba(255,214,10,0.15);animation:iconPulse 3s ease-in-out infinite;flex-shrink:0}
+@keyframes iconPulse{0%,100%{box-shadow:0 0 24px rgba(255,214,10,0.5),0 0 48px rgba(255,214,10,0.15)}50%{box-shadow:0 0 36px rgba(255,214,10,0.8),0 0 72px rgba(255,214,10,0.25)}}
+.logo-name{font-family:'Orbitron',monospace;font-size:15px;font-weight:900;color:var(--candy-yellow);letter-spacing:1px;text-shadow:0 0 20px rgba(255,214,10,0.5);line-height:1}
+.logo-tagline{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-faint);letter-spacing:2px;text-transform:uppercase;margin-top:3px}
+.version-chip{display:inline-flex;align-items:center;gap:6px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--candy-green);border:1px solid rgba(48,209,88,0.25);border-radius:20px;padding:3px 9px}
+.version-dot{width:5px;height:5px;background:var(--candy-green);border-radius:50%;animation:blink 1.4s step-end infinite;box-shadow:0 0 6px var(--candy-green)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+
+.sidebar-section{padding:14px 20px;border-bottom:1px solid var(--border)}
+.section-label{font-family:'Share Tech Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:3px;color:var(--text-faint);margin-bottom:11px;display:flex;align-items:center;gap:8px}
+.section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+.field{margin-bottom:11px}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--text-dim);margin-bottom:5px;letter-spacing:0.5px}
+select,input[type="text"]{width:100%;background:var(--bg3);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'Rajdhani',sans-serif;font-size:13px;font-weight:500;padding:8px 10px;outline:none;transition:all 0.2s;appearance:none}
+select:focus,select:hover{border-color:rgba(255,214,10,0.4);box-shadow:0 0 0 2px rgba(255,214,10,0.07)}
+select option{background:var(--bg3)}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:7px 0}
+.toggle-label{font-size:12px;font-weight:600;color:var(--text-dim)}
+.toggle{position:relative;width:38px;height:21px;cursor:pointer}
+.toggle input{display:none}
+.toggle-track{position:absolute;inset:0;background:var(--bg3);border-radius:11px;border:1px solid var(--border);transition:all 0.2s}
+.toggle input:checked~.toggle-track{background:linear-gradient(90deg,var(--candy-yellow),#ff9500);border-color:var(--candy-yellow);box-shadow:0 0 10px rgba(255,214,10,0.4)}
+.toggle-thumb{position:absolute;top:3px;left:3px;width:13px;height:13px;background:var(--text-dim);border-radius:50%;transition:all 0.2s}
+.toggle input:checked~.toggle-thumb{left:20px;background:var(--bg)}
+
+/* GAME SELECTOR */
+.game-selector-wrap{display:none}
+.game-selector-wrap.visible{display:block}
+.game-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.game-chip{display:flex;align-items:center;gap:6px;padding:6px 8px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all 0.15s;user-select:none;position:relative;overflow:hidden}
+.game-chip::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,214,10,0.06),transparent);opacity:0;transition:opacity 0.15s}
+.game-chip:hover{border-color:rgba(255,214,10,0.25)}
+.game-chip:hover::before{opacity:1}
+.game-chip.selected{border-color:rgba(255,214,10,0.45);background:rgba(255,214,10,0.05);box-shadow:0 0 8px rgba(255,214,10,0.08)}
+.game-chip.selected::before{opacity:1}
+.game-chip-icon{font-size:14px;flex-shrink:0}
+.game-chip-name{font-size:10px;font-weight:600;color:var(--text-dim);line-height:1.2}
+.game-chip.selected .game-chip-name{color:var(--candy-yellow)}
+.game-selection-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.game-selection-count{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-faint)}
+.game-selection-count span{color:var(--candy-yellow)}
+.btn-select-all{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-faint);background:none;border:1px solid var(--border);border-radius:4px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;padding:2px 7px;transition:all 0.15s}
+.btn-select-all:hover{color:var(--candy-yellow);border-color:rgba(255,214,10,0.3)}
+
+/* UPLOAD */
+.upload-zone{border:1px dashed var(--border);border-radius:var(--radius);padding:14px;text-align:center;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.upload-zone:hover,.upload-zone.drag-over{border-color:rgba(255,45,85,0.4);background:rgba(255,45,85,0.03);box-shadow:0 0 20px rgba(255,45,85,0.07)}
+.upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upload-zone-icon{font-size:20px;margin-bottom:5px}
+.upload-zone-text{font-size:12px;font-weight:600;color:var(--text-dim)}
+.upload-zone-sub{font-size:10px;color:var(--text-faint);margin-top:2px;font-family:'Share Tech Mono',monospace}
+
+/* GENERATE BUTTON */
+.btn-run{width:100%;padding:14px;background:linear-gradient(135deg,var(--candy-yellow) 0%,#ff9500 100%);color:#000;border:none;border-radius:var(--radius);font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;box-shadow:0 4px 20px rgba(255,214,10,0.3),0 0 40px rgba(255,214,10,0.08)}
+.btn-run::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:linear-gradient(45deg,transparent 30%,rgba(255,255,255,0.2) 50%,transparent 70%);transform:translateX(-100%);transition:transform 0.5s}
+.btn-run:hover::before{transform:translateX(100%)}
+.btn-run:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,214,10,0.5),0 0 60px rgba(255,214,10,0.15)}
+.btn-run:active{transform:translateY(0)}
+.btn-run:disabled{opacity:0.3;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-run .spinner{display:none;width:18px;height:18px;border:2px solid rgba(0,0,0,0.3);border-top-color:#000;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto}
+.btn-run.loading .btn-label{display:none}
+.btn-run.loading .spinner{display:block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RUN HISTORY */
+.run-history{flex:1;overflow-y:auto;padding:14px 20px}
+.run-history-title{font-family:'Share Tech Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:3px;color:var(--text-faint);margin-bottom:10px}
+.run-item{padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:6px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
+.run-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--text-faint);transition:all 0.2s}
+.run-item:hover{border-color:rgba(255,255,255,0.1);background:var(--panel2)}
+.run-item.active{border-color:rgba(255,214,10,0.25)}
+.run-item.active::before{background:var(--candy-yellow);box-shadow:0 0 8px var(--candy-yellow)}
+.run-item-id{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--candy-yellow);margin-bottom:2px}
+.run-item-brief{font-size:11px;font-weight:600;color:var(--text-dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.run-item-meta{display:flex;align-items:center;gap:6px;margin-top:5px}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--text-faint);flex-shrink:0}
+.status-dot.running{background:var(--candy-yellow);animation:pulse 1s ease-in-out infinite;box-shadow:0 0 6px var(--candy-yellow)}
+.status-dot.done{background:var(--candy-green);box-shadow:0 0 4px var(--candy-green)}
+.status-dot.error{background:var(--candy-red);box-shadow:0 0 4px var(--candy-red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+.run-item-count{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-faint)}
+
+/* MAIN */
+.main{display:flex;flex-direction:column;min-height:100vh;background:var(--bg2);position:relative}
+.main-topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;border-bottom:1px solid var(--border);background:rgba(6,6,8,0.85);backdrop-filter:blur(12px);position:sticky;top:0;z-index:100}
+.main-title{font-family:'Orbitron',monospace;font-size:12px;font-weight:700;letter-spacing:4px;color:var(--text-dim)}
+.main-run-id{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--candy-yellow);padding:3px 10px;border:1px solid rgba(255,214,10,0.25);border-radius:4px;background:rgba(255,214,10,0.04)}
+.main-run-id.hidden{display:none}
+
+/* PROGRESS */
+.progress-bar-wrap{height:3px;background:var(--bg3);position:relative;overflow:hidden}
+.progress-bar{height:100%;background:linear-gradient(90deg,var(--candy-yellow),var(--candy-pink),var(--candy-cyan),var(--candy-yellow));background-size:300% 100%;transition:width 0.5s ease;animation:progressFlow 2s linear infinite}
+@keyframes progressFlow{0%{background-position:300% 0}100%{background-position:0% 0}}
+.progress-bar::after{content:'';position:absolute;right:0;top:0;width:60px;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.7))}
+
+/* EMPTY STATE */
+.empty-state{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;padding:60px 40px;text-align:center;position:relative}
+.empty-glow{position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,214,10,0.04) 0%,transparent 70%);pointer-events:none}
+.empty-icon-ring{width:110px;height:110px;border:1px solid rgba(255,214,10,0.15);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:30px;position:relative;animation:ringRotate 10s linear infinite}
+.empty-icon-ring::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:1px dashed rgba(255,45,85,0.15);animation:ringRotate 6s linear infinite reverse}
+.empty-icon-ring::after{content:'';position:absolute;inset:-18px;border-radius:50%;border:1px dashed rgba(0,229,255,0.08);animation:ringRotate 14s linear infinite}
+@keyframes ringRotate{to{transform:rotate(360deg)}}
+.empty-icon-inner{font-size:44px;animation:ringRotate 10s linear infinite reverse}
+.empty-title{font-family:'Orbitron',monospace;font-size:26px;font-weight:900;letter-spacing:4px;color:var(--text);margin-bottom:14px;text-shadow:0 0 40px rgba(255,214,10,0.2)}
+.empty-subtitle{font-size:14px;color:var(--text-faint);max-width:360px;line-height:1.8;font-weight:500}
+.empty-hint{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.hint-chip{font-family:'Share Tech Mono',monospace;font-size:10px;padding:6px 14px;border:1px solid var(--border);border-radius:20px;color:var(--text-faint);letter-spacing:1px;transition:all 0.2s}
+.hint-chip:hover{border-color:rgba(255,214,10,0.3);color:var(--candy-yellow)}
+
+/* RUN VIEW */
+.run-view{display:flex;flex-direction:column;flex:1}
+.log-panel{background:rgba(0,0,0,0.5);border-bottom:1px solid var(--border);padding:12px 32px;max-height:150px;overflow-y:auto;font-family:'Share Tech Mono',monospace;font-size:10px;line-height:2;flex-shrink:0;scrollbar-width:thin;scrollbar-color:var(--candy-yellow) transparent}
+.log-panel::-webkit-scrollbar{width:3px}
+.log-panel::-webkit-scrollbar-thumb{background:var(--candy-yellow)}
+.log-line{color:var(--text-faint)}
+.log-line::before{content:'> ';color:var(--candy-yellow)}
+.log-line.error{color:var(--candy-red)}
+.log-line.error::before{content:'! ';color:var(--candy-red)}
+.log-line.success{color:var(--candy-green)}
+.log-line.success::before{content:'✓ ';color:var(--candy-green)}
+
+/* RESULTS */
+.results-area{flex:1;padding:24px 32px;overflow-y:auto}
+
+/* GENERATING STATE */
+.generating-hero{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:60px 40px;text-align:center;gap:0}
+.gen-ring-wrap{position:relative;width:120px;height:120px;margin-bottom:32px}
+.gen-ring{position:absolute;inset:0;border-radius:50%;border:2px solid transparent;animation:genSpin 1.8s linear infinite}
+.gen-ring:nth-child(1){border-top-color:var(--candy-yellow);animation-duration:1.8s}
+.gen-ring:nth-child(2){inset:10px;border-right-color:var(--candy-pink);animation-duration:1.4s;animation-direction:reverse}
+.gen-ring:nth-child(3){inset:20px;border-bottom-color:var(--candy-cyan);animation-duration:2.2s}
+@keyframes genSpin{to{transform:rotate(360deg)}}
+.gen-ring-center{position:absolute;inset:36px;border-radius:50%;background:radial-gradient(circle,rgba(255,214,10,0.15),transparent);display:flex;align-items:center;justify-content:center;font-size:24px;animation:genPulse 2s ease-in-out infinite}
+@keyframes genPulse{0%,100%{transform:scale(1);opacity:0.8}50%{transform:scale(1.15);opacity:1}}
+.gen-title{font-family:'Orbitron',monospace;font-size:18px;font-weight:900;letter-spacing:3px;color:var(--text);margin-bottom:10px}
+.gen-status{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--candy-yellow);letter-spacing:2px;margin-bottom:6px;min-height:18px}
+.gen-timer{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-faint);letter-spacing:1px;margin-bottom:28px}
+.gen-phase-list{display:flex;flex-direction:column;gap:8px;width:100%;max-width:360px}
+.gen-phase{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:6px;background:var(--panel);border:1px solid var(--border);transition:all 0.3s}
+.gen-phase.active{border-color:rgba(255,214,10,0.3);background:rgba(255,214,10,0.04);box-shadow:0 0 12px rgba(255,214,10,0.06)}
+.gen-phase.done{border-color:rgba(48,209,88,0.2);background:rgba(48,209,88,0.03)}
+.gen-phase-icon{font-size:14px;width:20px;text-align:center;flex-shrink:0}
+.gen-phase-text{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-faint);letter-spacing:1px;text-transform:uppercase;flex:1;text-align:left}
+.gen-phase.active .gen-phase-text{color:var(--candy-yellow)}
+.gen-phase.done .gen-phase-text{color:var(--candy-green)}
+.gen-phase-dot{width:6px;height:6px;border-radius:50%;background:var(--text-faint);flex-shrink:0}
+.gen-phase.active .gen-phase-dot{background:var(--candy-yellow);box-shadow:0 0 6px var(--candy-yellow);animation:pulse 1s ease-in-out infinite}
+.gen-phase.done .gen-phase-dot{background:var(--candy-green);box-shadow:0 0 4px var(--candy-green)}
+
+/* SKELETON CARDS */
+.skeleton-section{margin-bottom:40px}
+.skeleton-section-header{height:54px;border-radius:var(--radius);background:var(--panel);border:1px solid var(--border);margin-bottom:16px}
+.skeleton-grid{display:grid;grid-template-columns:1fr 0.65fr 1.6fr;gap:14px;align-items:start}
+.skeleton-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;animation:skeletonFade 0.5s ease both}
+.skeleton-card:nth-child(1){animation-delay:0.05s}
+.skeleton-card:nth-child(2){animation-delay:0.12s}
+.skeleton-card:nth-child(3){animation-delay:0.19s}
+@keyframes skeletonFade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.skeleton-img{width:100%;background:linear-gradient(90deg,var(--bg3) 25%,var(--panel2) 50%,var(--bg3) 75%);background-size:200% 100%;animation:skeletonWave 1.6s ease-in-out infinite}
+.skeleton-img.ratio-1x1{aspect-ratio:1/1}
+.skeleton-img.ratio-9x16{aspect-ratio:9/16}
+.skeleton-img.ratio-16x9{aspect-ratio:16/9}
+@keyframes skeletonWave{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.skeleton-meta{padding:10px 12px;border-top:1px solid var(--border)}
+.skeleton-line{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--bg3) 25%,var(--panel2) 50%,var(--bg3) 75%);background-size:200% 100%;animation:skeletonWave 1.6s ease-in-out infinite;margin-bottom:6px}
+.skeleton-line.w60{width:60%}
+.skeleton-line.w40{width:40%}
+.skeleton-line.w80{width:80%}
+/* generating overlay on skeleton */
+.skeleton-img-wrap{position:relative}
+.skeleton-gen-overlay{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.skeleton-gen-spinner{width:24px;height:24px;border:2px solid rgba(255,214,10,0.2);border-top-color:var(--candy-yellow);border-radius:50%;animation:spin 0.8s linear infinite}
+.skeleton-gen-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-faint);letter-spacing:1px}
+
+/* SUMMARY */
+.summary-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:28px;border:1px solid var(--border)}
+.summary-stat{background:var(--panel);padding:14px 16px;text-align:center;position:relative;overflow:hidden;transition:background 0.2s}
+.summary-stat::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--candy-yellow),var(--candy-pink));transform:scaleX(0);transition:transform 0.3s;transform-origin:left}
+.summary-stat:hover{background:var(--panel2)}
+.summary-stat:hover::after{transform:scaleX(1)}
+.stat-value{font-family:'Orbitron',monospace;font-size:28px;font-weight:900;color:var(--candy-yellow);line-height:1;text-shadow:0 0 20px rgba(255,214,10,0.35)}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-faint);text-transform:uppercase;letter-spacing:2px;margin-top:5px}
+
+/* SECTIONS */
+.game-section{margin-bottom:40px}
+.product-section{margin-bottom:40px}
+.game-section-header{display:flex;align-items:center;gap:14px;margin-bottom:16px;padding:12px 18px;background:var(--panel);border-radius:var(--radius);border:1px solid var(--border);position:relative;overflow:hidden;transition:border-color 0.2s}
+.game-section-header:hover{border-color:rgba(255,214,10,0.2)}
+.game-section-header::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--candy-yellow),var(--candy-pink));box-shadow:0 0 12px rgba(255,214,10,0.4)}
+.game-section-header::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,214,10,0.04),transparent 50%);pointer-events:none}
+.game-section-icon{font-size:26px;filter:drop-shadow(0 0 8px rgba(255,214,10,0.4))}
+.game-section-title{font-family:'Orbitron',monospace;font-size:15px;font-weight:700;letter-spacing:3px;color:var(--text)}
+.game-section-sub{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text-faint);margin-top:2px}
+.product-name{font-family:'Orbitron',monospace;font-size:16px;font-weight:700;letter-spacing:2px;margin-bottom:16px;color:var(--text);display:flex;align-items:center;gap:12px}
+.product-name::before{content:'';display:block;width:4px;height:22px;background:linear-gradient(180deg,var(--candy-yellow),var(--candy-pink));border-radius:2px;box-shadow:0 0 10px rgba(255,214,10,0.5)}
+
+/* GRID */
+.creatives-grid{display:grid;grid-template-columns:1fr 0.65fr 1.6fr;gap:14px;align-items:start}
+.creative-card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);animation:cardReveal 0.5s cubic-bezier(0.34,1.56,0.64,1) both;position:relative}
+.creative-card::after{content:'';position:absolute;inset:0;border-radius:var(--radius-lg);box-shadow:inset 0 0 0 1px rgba(255,214,10,0);transition:box-shadow 0.3s}
+.creative-card:hover{transform:translateY(-8px) scale(1.01);box-shadow:0 20px 60px rgba(0,0,0,0.6),0 0 30px rgba(255,214,10,0.08)}
+.creative-card:hover::after{box-shadow:inset 0 0 0 1px rgba(255,214,10,0.25)}
+.creative-card:nth-child(1){animation-delay:0.05s}
+.creative-card:nth-child(2){animation-delay:0.12s}
+.creative-card:nth-child(3){animation-delay:0.2s}
+@keyframes cardReveal{from{opacity:0;transform:translateY(24px) scale(0.94)}to{opacity:1;transform:translateY(0) scale(1)}}
+.card-image-wrap{position:relative;overflow:hidden;background:var(--bg3)}
+.card-image-wrap.ratio-1x1{aspect-ratio:1/1}
+.card-image-wrap.ratio-9x16{aspect-ratio:9/16}
+.card-image-wrap.ratio-16x9{aspect-ratio:16/9}
+.card-image-wrap img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 0.4s ease}
+.creative-card:hover .card-image-wrap img{transform:scale(1.06)}
+.card-overlay{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:all 0.3s;background:rgba(0,0,0,0)}
+.creative-card:hover .card-overlay{background:linear-gradient(135deg,rgba(255,214,10,0.08),rgba(255,45,85,0.08))}
+.card-overlay-icon{font-size:30px;opacity:0;transform:scale(0.4) rotate(-15deg);transition:all 0.3s cubic-bezier(0.34,1.56,0.64,1);filter:drop-shadow(0 0 16px rgba(255,214,10,0.8))}
+.creative-card:hover .card-overlay-icon{opacity:1;transform:scale(1) rotate(0deg)}
+.card-meta{padding:10px 12px;border-top:1px solid var(--border);background:var(--panel)}
+.card-game-badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 7px;border-radius:3px;background:rgba(255,214,10,0.07);color:var(--candy-yellow);border:1px solid rgba(255,214,10,0.18);margin-bottom:5px;letter-spacing:0.5px}
+.card-ratio-badge{display:inline-block;font-family:'Orbitron',monospace;font-size:9px;font-weight:700;padding:2px 7px;border:1px solid var(--border);border-radius:3px;color:var(--text-dim);margin-bottom:4px;margin-right:4px}
+.card-dims{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-faint);margin-bottom:6px}
+.card-badges{display:flex;gap:4px;flex-wrap:wrap}
+.badge{font-family:'Share Tech Mono',monospace;font-size:9px;padding:2px 6px;border-radius:3px;font-weight:500;letter-spacing:0.5px}
+.badge-ok{background:rgba(48,209,88,0.1);color:var(--candy-green);border:1px solid rgba(48,209,88,0.2)}
+.badge-warn{background:rgba(255,214,10,0.1);color:var(--candy-yellow);border:1px solid rgba(255,214,10,0.2)}
+.badge-err{background:rgba(255,45,85,0.1);color:var(--candy-red);border:1px solid rgba(255,45,85,0.2)}
+
+/* LIGHTBOX */
+.lightbox{display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.96);backdrop-filter:blur(24px);align-items:center;justify-content:center}
+.lightbox.open{display:flex;animation:lbIn 0.2s ease}
+@keyframes lbIn{from{opacity:0}to{opacity:1}}
+.lightbox-inner{position:relative;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;gap:20px}
+.lightbox-inner img{max-width:100%;max-height:75vh;object-fit:contain;border-radius:var(--radius-lg);box-shadow:0 0 0 1px var(--border),0 40px 100px rgba(0,0,0,0.9),0 0 80px rgba(255,214,10,0.06);animation:lbImgIn 0.3s cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes lbImgIn{from{transform:scale(0.88)}to{transform:scale(1)}}
+.lightbox-close{position:fixed;top:20px;right:20px;width:42px;height:42px;background:var(--panel);border:1px solid var(--border);border-radius:50%;color:var(--text);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.15s;z-index:10;font-family:'Orbitron',monospace}
+.lightbox-close:hover{background:var(--candy-red);border-color:var(--candy-red);box-shadow:0 0 20px rgba(255,45,85,0.4)}
+.lightbox-meta{text-align:center;font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--text-faint);letter-spacing:1px}
+.lightbox-meta strong{color:var(--candy-yellow);font-family:'Orbitron',monospace;font-size:13px}
+.lightbox-download{padding:10px 28px;background:linear-gradient(135deg,var(--candy-yellow),#ff9500);color:#000;border:none;border-radius:var(--radius);font-family:'Orbitron',monospace;font-size:11px;font-weight:700;letter-spacing:2px;cursor:pointer;transition:all 0.2s;box-shadow:0 4px 20px rgba(255,214,10,0.3)}
+.lightbox-download:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(255,214,10,0.5)}
+#particles{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:0.35}
+</style>
+</head>
+<body>
+<canvas id="particles"></canvas>
+<div class="app">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo-lockup">
+        <div class="logo-icon">🍬</div>
+        <div>
+          <div class="logo-name">FRUITYBURST</div>
+          <div class="logo-tagline">Campaign Engine v2.0</div>
+        </div>
+      </div>
+      <div class="version-chip"><div class="version-dot"></div>SYSTEM ONLINE · GPT-IMAGE-1</div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-label">Mission Config</div>
+      <div class="field">
+        <label>Campaign Brief</label>
+        <select id="briefSelect"><option value="">Scanning briefs...</option></select>
+      </div>
+      <div class="field">
+        <label>Product <span style="color:var(--text-faint);font-weight:400">// optional</span></label>
+        <select id="productSelect"><option value="">All products</option></select>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Simulation Mode <span style="color:var(--text-faint);font-size:10px">(no API)</span></span>
+        <label class="toggle"><input type="checkbox" id="dryRun"><div class="toggle-track"></div><div class="toggle-thumb"></div></label>
+      </div>
+    </div>
+
+    <div class="sidebar-section game-selector-wrap" id="gameSelectorWrap">
+      <div class="section-label">Select Worlds</div>
+      <div class="game-selection-meta">
+        <div class="game-selection-count"><span id="gameSelectedCount">0</span> / 10 active</div>
+        <button class="btn-select-all" onclick="toggleAllGames()">TOGGLE ALL</button>
+      </div>
+      <div class="game-grid" id="gameGrid"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <div class="section-label">Asset Upload</div>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="assetUpload" accept=".png,.jpg,.jpeg,.webp">
+        <div class="upload-zone-icon">📦</div>
+        <div class="upload-zone-text">Drop hero image here</div>
+        <div class="upload-zone-sub">PNG · JPG · WEBP</div>
+      </div>
+      <div id="uploadStatus" style="font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--candy-green);margin-top:8px;display:none;letter-spacing:1px"></div>
+    </div>
+
+    <div class="sidebar-section">
+      <button class="btn-run" id="runBtn" onclick="startRun()">
+        <span class="btn-label">⚡ GENERATE CREATIVES</span>
+        <div class="spinner"></div>
+      </button>
+    </div>
+
+    <div class="run-history">
+      <div class="run-history-title">// Mission Log</div>
+      <div id="runHistoryList"></div>
+    </div>
+  </aside>
+
+  <main class="main" id="mainContent">
+    <div class="main-topbar">
+      <div class="main-title">CREATIVE OUTPUT</div>
+      <div class="main-run-id hidden" id="currentRunBadge">#-------</div>
+    </div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="globalProgressBar" style="width:0%"></div></div>
+    <div class="empty-state" id="emptyState">
+      <div class="empty-glow"></div>
+      <div class="empty-icon-ring"><div class="empty-icon-inner">🍬</div></div>
+      <div class="empty-title">READY TO DROP</div>
+      <div class="empty-subtitle">Configure your campaign, select game worlds, then fire up the engine to generate cinematic ad creatives.</div>
+      <div class="empty-hint">
+        <div class="hint-chip">10 GAME WORLDS</div>
+        <div class="hint-chip">3 ASPECT RATIOS</div>
+        <div class="hint-chip">GPT-IMAGE-1</div>
+        <div class="hint-chip">BOKEH PHOTOGRAPHY</div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+  <div class="lightbox-inner">
+    <img id="lightboxImg" src="" alt="">
+    <div class="lightbox-meta" id="lightboxMeta"></div>
+    <button class="lightbox-download" id="lightboxDownload">⬇ DOWNLOAD ASSET</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  const c=document.getElementById('particles'),ctx=c.getContext('2d');
+  const cols=['#ffd60a','#ff2d55','#ff6b9d','#00e5ff','#bf5af2','#30d158'];
+  const pts=[];
+  function resize(){c.width=window.innerWidth;c.height=window.innerHeight}
+  resize();window.addEventListener('resize',resize);
+  for(let i=0;i<55;i++) pts.push({x:Math.random()*innerWidth,y:Math.random()*innerHeight,r:Math.random()*1.8+0.4,dx:(Math.random()-.5)*0.25,dy:(Math.random()-.5)*0.25,color:cols[Math.floor(Math.random()*cols.length)],alpha:Math.random()*0.45+0.08});
+  function draw(){
+    ctx.clearRect(0,0,c.width,c.height);
+    for(const p of pts){ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color;ctx.globalAlpha=p.alpha;ctx.fill();p.x+=p.dx;p.y+=p.dy;if(p.x<0||p.x>c.width)p.dx*=-1;if(p.y<0||p.y>c.height)p.dy*=-1}
+    ctx.globalAlpha=1;requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+let currentRunId=null,runData={};
+const RATIO_DIMS={"1x1":"1024 × 1024","9x16":"1024 × 1536","16x9":"1536 × 1024"};
+const GAME_ICONS={"Fortnite":"🎯","Roblox":"🧱","Minecraft":"⛏️","World of Warcraft":"⚔️","League of Legends":"🏆","Valorant":"🔫","Apex Legends":"🚀","Call of Duty":"🪖","Among Us":"🕵️","Pokemon":"⚡"};
+let availableGames=[],selectedGames=new Set();
+
+async function init(){await loadBriefs();setupUpload();await loadPastRuns()}
+
+async function loadPastRuns(){
+  try{
+    const r=await fetch("/api/runs"),past=await r.json();
+    if(!past.length)return;
+    for(const run of past){runData[run.run_id]={results:[],status:run.status,brief:run.brief,product:run.product||null,restored:run.restored||false};addRunToHistory(run.run_id,run.restored)}
+    const latest=past[0];
+    if(latest){currentRunId=latest.run_id;showRunView(latest.run_id);streamRun(latest.run_id)}
+  }catch(e){console.warn("Could not load past runs:",e)}
+}
+
+async function loadBriefs(){
+  const r=await fetch("/api/briefs"),briefs=await r.json();
+  const sel=document.getElementById("briefSelect");
+  sel.innerHTML=briefs.map(b=>`<option value="${b}">${b}</option>`).join("");
+  if(briefs.length)loadBriefProducts(briefs[0]);
+  sel.onchange=()=>loadBriefProducts(sel.value);
+}
+
+async function loadBriefProducts(filename){
+  if(!filename)return;
+  try{
+    const r=await fetch(`/api/brief/${filename}`),brief=await r.json();
+    const products=brief.products||[];
+    const sel=document.getElementById("productSelect");
+    sel.innerHTML=`<option value="">All products (${products.length})</option>`+products.map(p=>`<option value="${p.name}">${p.name}</option>`).join("");
+    buildGameSelector(products.flatMap(p=>p.gaming_themes||[]));
+  }catch(e){}
+}
+
+function setupUpload(){
+  const zone=document.getElementById("uploadZone"),input=document.getElementById("assetUpload");
+  zone.addEventListener("dragover",e=>{e.preventDefault();zone.classList.add("drag-over")});
+  zone.addEventListener("dragleave",()=>zone.classList.remove("drag-over"));
+  zone.addEventListener("drop",async e=>{e.preventDefault();zone.classList.remove("drag-over");if(e.dataTransfer.files[0])await uploadAsset(e.dataTransfer.files[0])});
+  input.addEventListener("change",async()=>{if(input.files[0])await uploadAsset(input.files[0])});
+}
+
+async function uploadAsset(file){
+  const fd=new FormData();fd.append("file",file);
+  const r=await fetch("/api/upload-asset",{method:"POST",body:fd}),data=await r.json();
+  const s=document.getElementById("uploadStatus");s.style.display="block";s.textContent=`> UPLOADED: ${data.saved}`;
+  setTimeout(()=>{s.style.display="none"},3000);
+}
+
+function buildGameSelector(themes){
+  const wrap=document.getElementById("gameSelectorWrap"),grid=document.getElementById("gameGrid");
+  if(!themes.length){wrap.classList.remove("visible");availableGames=[];selectedGames.clear();return}
+  availableGames=themes.map(t=>t.game);selectedGames=new Set(availableGames);wrap.classList.add("visible");
+  grid.innerHTML=themes.map(t=>`<div class="game-chip selected" id="chip_${t.game.replace(/\s+/g,'_')}" onclick="toggleGame('${t.game}')"><span class="game-chip-icon">${GAME_ICONS[t.game]||"🎮"}</span><span class="game-chip-name">${t.game}</span></div>`).join("");
+  updateGameCount();
+}
+
+function toggleGame(game){
+  if(selectedGames.has(game))selectedGames.delete(game);else selectedGames.add(game);
+  document.getElementById(`chip_${game.replace(/\s+/g,'_')}`)?.classList.toggle("selected",selectedGames.has(game));
+  updateGameCount();
+}
+
+function toggleAllGames(){
+  const all=selectedGames.size===availableGames.length;
+  if(all)selectedGames.clear();else availableGames.forEach(g=>selectedGames.add(g));
+  availableGames.forEach(g=>document.getElementById(`chip_${g.replace(/\s+/g,'_')}`)?.classList.toggle("selected",selectedGames.has(g)));
+  updateGameCount();
+}
+
+function updateGameCount(){const el=document.getElementById("gameSelectedCount");if(el)el.textContent=selectedGames.size}
+
+async function startRun(){
+  const brief=document.getElementById("briefSelect").value,product=document.getElementById("productSelect").value,dryRun=document.getElementById("dryRun").checked,btn=document.getElementById("runBtn");
+  if(!brief)return;
+  if(availableGames.length&&selectedGames.size===0){alert("Select at least one world.");return}
+  btn.disabled=true;btn.classList.add("loading");
+  const body={brief,product:product||null,dry_run:dryRun};
+  if(availableGames.length)body.selected_games=[...selectedGames];
+  const r=await fetch("/api/run",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(body)});
+  const{run_id}=await r.json();
+  runData[run_id]={results:[],status:"running",brief,product:product||null,restored:false};
+  currentRunId=run_id;
+  document.querySelectorAll(".run-item").forEach(el=>el.classList.remove("active"));
+  const list=document.getElementById("runHistoryList"),ph=document.createElement("div");
+  list.prepend(ph);addRunToHistory(run_id,false);list.removeChild(ph);
+  document.getElementById(`runItem_${run_id}`)?.classList.add("active");
+  showRunView(run_id);streamRun(run_id);
+}
+
+function streamRun(run_id){
+  const es=new EventSource(`/api/run/${run_id}/stream`);
+  es.onmessage=e=>{
+    const ev=JSON.parse(e.data);
+    if(ev.type==="ping")return;
+    if(ev.type==="log")appendLog(run_id,ev.msg);
+    if(ev.type==="image")appendResult(run_id,ev.data);
+    if(ev.type==="done"){runData[run_id].status="done";finishRun(run_id);es.close()}
+    if(ev.type==="error"){appendLog(run_id,ev.msg,"error");runData[run_id].status="error";finishRun(run_id);es.close()}
+  };
+}
+
+function showRunView(run_id){
+  document.getElementById("emptyState")?.remove();
+  const badge=document.getElementById("currentRunBadge");
+  if(badge){badge.textContent=`#${run_id}`;badge.classList.remove("hidden")}
+  if(document.getElementById(`runView_${run_id}`)){
+    document.querySelectorAll(".run-view").forEach(v=>v.style.display="none");
+    document.getElementById(`runView_${run_id}`).style.display="";
+    return;
+  }
+  const main=document.getElementById("mainContent");
+  document.querySelectorAll(".run-view").forEach(v=>v.style.display="none");
+  const div=document.createElement("div");
+  div.id=`runView_${run_id}`;div.className="run-view";
+
+  const rd=runData[run_id];
+  const isRunning=rd&&rd.status==="running";
+
+  // Build skeleton sections for each selected game (or 1 default section)
+  const games=selectedGames.size>0?[...selectedGames]:[""];
+  const skeletonSections=games.map(game=>{
+    const icon=GAME_ICONS[game]||"🎮";
+    const label=game||rd?.product||"Product";
+    return `
+      <div class="skeleton-section" id="skelSection_${run_id}_${game.replace(/\s+/g,'_')}">
+        <div class="game-section-header skeleton-section-header" style="opacity:0.5">
+          <span class="game-section-icon" style="filter:grayscale(1)">${icon}</span>
+          <div>
+            <div class="game-section-title" style="color:var(--text-faint)">${game?game.toUpperCase():"CAMPAIGN"}</div>
+            <div class="game-section-sub">${label}</div>
+          </div>
+        </div>
+        <div class="skeleton-grid">
+          ${["ratio-1x1","ratio-9x16","ratio-16x9"].map((r,i)=>`
+            <div class="skeleton-card" style="grid-column:${i+1}">
+              <div class="skeleton-img-wrap">
+                <div class="skeleton-img ${r}"></div>
+                ${isRunning?`<div class="skeleton-gen-overlay"><div class="skeleton-gen-spinner"></div><div class="skeleton-gen-label">RENDERING...</div></div>`:""}
+              </div>
+              <div class="skeleton-meta">
+                <div class="skeleton-line w40"></div>
+                <div class="skeleton-line w60"></div>
+                <div class="skeleton-line w80"></div>
+              </div>
+            </div>`).join("")}
+        </div>
+      </div>`;
+  }).join("");
+
+  div.innerHTML=`
+    <div class="log-panel" id="logPanel_${run_id}"></div>
+    <div class="results-area" id="resultsArea_${run_id}">
+      ${isRunning?`
+      <div id="generatingHero_${run_id}" class="generating-hero">
+        <div class="gen-ring-wrap">
+          <div class="gen-ring"></div>
+          <div class="gen-ring"></div>
+          <div class="gen-ring"></div>
+          <div class="gen-ring-center">⚡</div>
+        </div>
+        <div class="gen-title">GENERATING</div>
+        <div class="gen-status" id="genStatus_${run_id}">INITIALISING ENGINE...</div>
+        <div class="gen-timer" id="genTimer_${run_id}">ELAPSED: 0:00</div>
+        <div class="gen-phase-list">
+          <div class="gen-phase active" id="genPhase_hero_${run_id}">
+            <span class="gen-phase-icon">🖼</span>
+            <span class="gen-phase-text">Generating hero image</span>
+            <div class="gen-phase-dot"></div>
+          </div>
+          <div class="gen-phase" id="genPhase_edit_${run_id}">
+            <span class="gen-phase-icon">✂️</span>
+            <span class="gen-phase-text">Creating aspect ratio variants</span>
+            <div class="gen-phase-dot"></div>
+          </div>
+          <div class="gen-phase" id="genPhase_comp_${run_id}">
+            <span class="gen-phase-icon">✅</span>
+            <span class="gen-phase-text">Compliance checks</span>
+            <div class="gen-phase-dot"></div>
+          </div>
+        </div>
+      </div>`:""}
+      <div id="summaryBar_${run_id}"></div>
+      <div id="productsWrap_${run_id}">${isRunning?skeletonSections:""}</div>
+    </div>`;
+  main.appendChild(div);
+
+  // Start elapsed timer
+  if(isRunning){
+    const startTime=Date.now();
+    const timerEl=document.getElementById(`genTimer_${run_id}`);
+    const timerId=setInterval(()=>{
+      if(!timerEl||runData[run_id]?.status!=="running"){clearInterval(timerId);return}
+      const s=Math.floor((Date.now()-startTime)/1000);
+      timerEl.textContent=`ELAPSED: ${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+    },1000);
+    // Store timer id so we can clear it
+    runData[run_id]._timerId=timerId;
+  }
+}
+
+function switchToRun(run_id){
+  currentRunId=run_id;
+  document.querySelectorAll(".run-item").forEach(el=>el.classList.remove("active"));
+  document.getElementById(`runItem_${run_id}`)?.classList.add("active");
+  const badge=document.getElementById("currentRunBadge");
+  if(badge){badge.textContent=`#${run_id}`;badge.classList.remove("hidden")}
+  document.querySelectorAll(".run-view").forEach(v=>v.style.display="none");
+  let view=document.getElementById(`runView_${run_id}`);
+  if(!view){showRunView(run_id);view=document.getElementById(`runView_${run_id}`)}
+  if(view)view.style.display="";
+  const rd=runData[run_id];
+  if(rd){rd.results.forEach(r=>appendResult(run_id,r,false));if(rd.status!=="running")finishRun(run_id)}
+}
+
+function appendLog(run_id,msg,type="log"){
+  const panel=document.getElementById(`logPanel_${run_id}`);if(!panel)return;
+  const line=document.createElement("div");line.className=`log-line ${type}`;
+  const time=new Date().toLocaleTimeString("en-US",{hour12:false});
+  line.textContent=`[${time}] ${msg}`;panel.appendChild(line);panel.scrollTop=panel.scrollHeight;
+
+  // Update phase indicators based on log content
+  const lc=msg.toLowerCase();
+  const statusEl=document.getElementById(`genStatus_${run_id}`);
+
+  if(lc.includes("generating hero")||lc.includes("reusing asset")){
+    setPhase(run_id,"hero","active");
+    if(statusEl)statusEl.textContent="GENERATING HERO IMAGE...";
+  }
+  if(lc.includes("generating 1x1")||lc.includes("generating 9x16")||lc.includes("generating 16x9")){
+    setPhase(run_id,"hero","done");
+    setPhase(run_id,"edit","active");
+    const game=msg.match(/\[([^\]]+)\]/)?.[1]||"";
+    if(statusEl)statusEl.textContent=`RENDERING${game?" "+game.toUpperCase():""}...`;
+  }
+  if(lc.includes("saved")){
+    setPhase(run_id,"edit","active");
+    setPhase(run_id,"comp","active");
+    if(statusEl)statusEl.textContent="COMPLIANCE CHECKS...";
+  }
+  if(type==="success"){
+    setPhase(run_id,"hero","done");
+    setPhase(run_id,"edit","done");
+    setPhase(run_id,"comp","done");
+    if(statusEl)statusEl.textContent="MISSION COMPLETE";
+  }
+}
+
+function setPhase(run_id,phase,state){
+  const el=document.getElementById(`genPhase_${phase}_${run_id}`);
+  if(!el)return;
+  el.classList.remove("active","done");
+  if(state)el.classList.add(state);
+}
+
+function appendResult(run_id,data,animate=true){
+  if(!document.getElementById(`productsWrap_${run_id}`))return;
+  const rd=runData[run_id];
+  if(animate&&!rd.results.find(r=>r.product===data.product&&r.ratio===data.ratio&&r.game===data.game))rd.results.push(data);
+
+  // Hide the generating hero on first real image
+  const hero=document.getElementById(`generatingHero_${run_id}`);
+  if(hero)hero.style.display="none";
+
+  // Remove skeleton section for this game when first real card arrives
+  const gameKey=(data.game||"").replace(/\s+/g,'_');
+  const skelId=`skelSection_${run_id}_${gameKey}`;
+  document.getElementById(skelId)?.remove();
+  const sectionKey=data.game?`${data.product}__${data.game}`:data.product;
+  const sectionId=`section_${run_id}_${sectionKey.replace(/[\s+]/g,'_')}`;
+  let section=document.getElementById(sectionId);
+  if(!section){
+    const wrap=document.getElementById(`productsWrap_${run_id}`);
+    section=document.createElement("div");section.id=sectionId;
+    section.className=data.game?"game-section":"product-section";
+    if(data.game){
+      section.innerHTML=`<div class="game-section-header"><span class="game-section-icon">${GAME_ICONS[data.game]||"🎮"}</span><div><div class="game-section-title">${data.game.toUpperCase()}</div><div class="game-section-sub">${data.product}</div></div></div><div class="creatives-grid" id="grid_${sectionId}"></div>`;
+    }else{
+      section.innerHTML=`<div class="product-name"><span>${data.product}</span></div><div class="creatives-grid" id="grid_${sectionId}"></div>`;
+    }
+    wrap.prepend(section);
+  }
+  const grid=document.getElementById(`grid_${sectionId}`);
+  const cardId=`card_${run_id}_${sectionKey.replace(/[\s+]/g,'_')}_${data.ratio}`;
+  const col={"1x1":1,"9x16":2,"16x9":3}[data.ratio]||1;
+  const legalOk=!data.legal_issues||!data.legal_issues.length;
+  const brandOk=data.brand_compliance&&data.brand_compliance.passed;
+  const dims=data.canvas_size?`${data.canvas_size[0]} × ${data.canvas_size[1]}`:RATIO_DIMS[data.ratio];
+  const badges=`<span class="badge ${legalOk?'badge-ok':'badge-warn'}">${legalOk?'LEGAL OK':'LEGAL FLAG'}</span><span class="badge ${brandOk?'badge-ok':'badge-warn'}">${brandOk?'BRAND OK':'BRAND CHK'}</span>`;
+  const imgSrc=`data:image/png;base64,${data.image_b64}`;
+  const html=buildCard(cardId,data,imgSrc,dims,badges,animate,col);
+  const existing=document.getElementById(cardId);
+  if(existing)existing.outerHTML=html;else grid.insertAdjacentHTML("beforeend",html);
+  updateProgress(run_id);updateSummary(run_id);
+}
+
+function buildCard(cardId,data,imgSrc,dims,badgesHtml,animate,col=0){
+  return `<div class="creative-card" id="${cardId}" style="${col?`grid-column:${col};`:""}${animate?"":"animation:none;"}" onclick="openLightbox('${cardId}','${data.product}','${data.ratio}')">
+    <div class="card-image-wrap ratio-${data.ratio}">
+      <img src="${imgSrc}" alt="${data.product} ${data.ratio}" loading="lazy" data-full="${imgSrc}" data-product="${data.product}" data-ratio="${data.ratio}">
+      <div class="card-overlay"><div class="card-overlay-icon">⤢</div></div>
+    </div>
+    <div class="card-meta">
+      ${data.game?`<div class="card-game-badge">${GAME_ICONS[data.game]||"🎮"} ${data.game}</div><br>`:""}
+      <div class="card-ratio-badge">${data.ratio.toUpperCase()}</div>
+      <div class="card-dims">${dims}</div>
+      <div class="card-badges">${badgesHtml}</div>
+    </div>
+  </div>`;
+}
+
+function updateProgress(run_id){
+  const rd=runData[run_id];if(!rd)return;
+  const bar=document.getElementById("globalProgressBar");if(!bar)return;
+  const gamesCount=selectedGames.size||1;
+  const prods=(rd.product?1:(document.getElementById("productSelect").options.length-1)||1);
+  const expected=prods*gamesCount*3;
+  bar.style.width=Math.min(100,Math.round((rd.results.length/Math.max(expected,1))*100))+"%";
+}
+
+function updateSummary(run_id){
+  const rd=runData[run_id];if(!rd||!rd.results.length)return;
+  const el=document.getElementById(`summaryBar_${run_id}`);if(!el)return;
+  const products=new Set(rd.results.map(r=>r.product)).size;
+  const games=new Set(rd.results.filter(r=>r.game).map(r=>r.game)).size;
+  const legal=rd.results.filter(r=>r.legal_issues?.length).length;
+  const brand=rd.results.filter(r=>!r.brand_compliance?.passed).length;
+  el.innerHTML=`<div class="summary-bar">
+    <div class="summary-stat"><div class="stat-value">${rd.results.length}</div><div class="stat-label">Creatives</div></div>
+    <div class="summary-stat"><div class="stat-value">${games||products}</div><div class="stat-label">${games?"Worlds":"Products"}</div></div>
+    <div class="summary-stat"><div class="stat-value" style="color:${legal?'var(--candy-red)':'var(--candy-green)'}">${legal}</div><div class="stat-label">Legal Flags</div></div>
+    <div class="summary-stat"><div class="stat-value" style="color:${brand?'var(--candy-red)':'var(--candy-green)'}">${brand}</div><div class="stat-label">Brand Fails</div></div>
+  </div>`;
+}
+
+function finishRun(run_id){
+  const btn=document.getElementById("runBtn");btn.disabled=false;btn.classList.remove("loading");
+  const bar=document.getElementById("globalProgressBar");if(bar)bar.style.width="100%";
+  // Clear elapsed timer
+  if(runData[run_id]?._timerId)clearInterval(runData[run_id]._timerId);
+  // Dismiss loading hero if somehow still showing
+  document.getElementById(`generatingHero_${run_id}`)?.remove();
+  // Remove any remaining skeletons
+  document.querySelectorAll(`[id^="skelSection_${run_id}_"]`).forEach(el=>el.remove());
+  updateHistoryItem(run_id);
+  appendLog(run_id,`Mission ${run_id} complete — ${runData[run_id].results.length} creatives generated.`,"success");
+}
+
+function addRunToHistory(run_id,restored=false){
+  const list=document.getElementById("runHistoryList");
+  if(document.getElementById(`runItem_${run_id}`))return;
+  const rd=runData[run_id];
+  const div=document.createElement("div");
+  div.className="run-item"+(run_id===currentRunId?" active":"");
+  div.id=`runItem_${run_id}`;div.onclick=()=>switchToRun(run_id);
+  const sc=rd.status==="done"?"done":rd.status==="error"?"error":"running";
+  div.innerHTML=`<div class="run-item-id">// ${run_id}</div>
+    <div class="run-item-brief">${rd.brief}${rd.product?` · ${rd.product}`:""}</div>
+    <div class="run-item-meta">
+      <div class="status-dot ${sc}" id="dot_${run_id}"></div>
+      <span class="run-item-count" id="count_${run_id}">${rd.status==="running"?"RUNNING...":`${(rd.results||[]).length} creatives`}</span>
+      ${restored?`<span style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text-faint);margin-left:auto;letter-spacing:1px">RESTORED</span>`:""}
+    </div>`;
+  list.appendChild(div);
+}
+
+function updateHistoryItem(run_id){
+  const rd=runData[run_id];
+  const dot=document.getElementById(`dot_${run_id}`),count=document.getElementById(`count_${run_id}`);
+  if(dot)dot.className=`status-dot ${rd.status}`;
+  if(count)count.textContent=`${rd.results.length} creatives`;
+}
+
+function openLightbox(cardId,product,ratio){
+  const card=document.getElementById(cardId);if(!card)return;
+  const img=card.querySelector("img");if(!img)return;
+  document.getElementById("lightboxImg").src=img.dataset.full||img.src;
+  document.getElementById("lightboxMeta").innerHTML=`<strong>${product}</strong> &nbsp;·&nbsp; ${ratio.toUpperCase()} &nbsp;·&nbsp; ${RATIO_DIMS[ratio]||""}`;
+  document.getElementById("lightboxDownload").onclick=()=>{
+    const a=document.createElement("a");a.href=document.getElementById("lightboxImg").src;
+    a.download=`${product.replace(/\s+/g,'_')}_${ratio}.png`;a.click();
+  };
+  document.getElementById("lightbox").classList.add("open");
+}
+
+function closeLightbox(e){
+  if(!e||e.target===document.getElementById("lightbox")||e.currentTarget.classList.contains("lightbox-close"))
+    document.getElementById("lightbox").classList.remove("open");
+}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")document.getElementById("lightbox").classList.remove("open")});
+init();
+</script>
+</body>
+</html>
