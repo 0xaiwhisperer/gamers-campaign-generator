@@ -84,6 +84,7 @@ creative-automation-pipeline/
 │
 ├── outputs/                    # Generated creatives (git-ignored)
 ├── logs/                       # Run logs (git-ignored)
+├── assets/                     # Store Banner 
 │
 ├── pipeline.py                 # CLI entry point
 ├── run_web.py                  # Web UI entry point
