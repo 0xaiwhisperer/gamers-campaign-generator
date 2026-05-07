@@ -2,7 +2,7 @@
 
 Automated social ad creative generation using OpenAI `gpt-image-1`. Accepts a campaign brief, generates hyper-realistic product photography placed inside game worlds with cinematic bokeh, and produces creatives across three aspect ratios. Ships with both a web UI and a CLI.
 
-<img src="assets/banner.png" alt="Arena Drop" width="600" />
+<img src="assets/banner2.png" alt="Arena Drop" width="600" />
 ---
 
 ## Quick Start
