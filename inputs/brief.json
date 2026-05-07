@@ -1,0 +1,167 @@
+{
+  "region": "North America",
+  "target_audience": "Gamers aged 5-35, parents of young gamers",
+  "prohibited_words": [
+    "guaranteed",
+    "instant win",
+    "free money",
+    "addictive",
+    "unlimited screen time"
+  ],
+  "brand_guidelines": {
+    "colors": [
+      "#FF4C4C",
+      "#FFD700",
+      "#00C2FF"
+    ],
+    "color_tolerance": 50
+  },
+  "base_art_style": {
+    "name": "Hyper-realistic cinematic product photography",
+    "description": "Every image is a high-end commercial product photograph. The subject product is shot with a professional medium-format camera \u2014 tack-sharp focus, rich colour depth, physically accurate materials rendering. The environment surrounds it as a beautifully lit, out-of-focus scene rendered with cinematic realism. The effect: a real physical product sitting inside a real-feeling world.",
+    "photography_style": "Commercial product photography. 85mm\u2013135mm portrait/product lens equivalent. Shallow depth of field \u2014 the product is razor-sharp and in perfect focus. Everything behind it falls into creamy bokeh blur (f/1.8\u2013f/2.8 equivalent). Bokeh balls from environmental light sources are visible as beautiful circular highlights in the background.",
+    "lighting": "Studio-quality three-point lighting on the product: a key light from upper-left giving strong directional illumination, a fill light softening shadows, and a rim/backlight separating the product from the background. The key light colour temperature is influenced by the scene's atmosphere. Specular highlights on the product surface are crisp and well-defined.",
+    "product_surface": "The product's physical surface materials are rendered with photographic accuracy \u2014 reflections, texture, sheen, and tactile quality are all visible. The product looks like something you could reach out and pick up.",
+    "background": "The background environment is photographically real and cinematic \u2014 rendered at next-gen game engine quality (Unreal Engine 5 fidelity). It is heavily blurred with bokeh so visual attention stays entirely on the product. Key iconic elements of the environment remain recognisable through the blur.",
+    "depth_of_field": "Extreme bokeh on the background. The product is perfectly sharp. Mid-ground elements (surfaces the product rests on) are slightly soft. Background elements are fully blurred into smooth bokeh circles. This depth-of-field separation is the defining visual effect of this style.",
+    "color_grading": "Each image has a subtle cinematic colour grade matching the scene's mood. The product's own colours remain accurate and punchy despite the grade \u2014 the grade affects the background and lighting, not the product itself.",
+    "composition": "Clean hero composition. The product is centred or slightly off-centre using the rule of thirds. It is large and dominates the frame. The background bokeh creates atmosphere without competing for attention. Generous, uncluttered framing.",
+    "what_never_changes": "The product's physical appearance, materials, and labelling are identical in every image. It is always in perfect focus. It always looks like a premium commercial product shot. Only the background environment and lighting colour temperature change between variations."
+  },
+  "game_worlds": [
+    {
+      "game": "Fortnite",
+      "style": "The bag sits on the iconic Fortnite LOOT LLAMA pi\u00f1ata \u2014 the brightly coloured blue-and-yellow llama figure with a rainbow saddle that is unmistakeably Fortnite. Background bokeh: the signature PURPLE STORM WALL \u2014 a churning, glowing wall of purple energy filling the entire background sky. In the midground bokeh, the iconic BATTLE BUS floats across the storm, the blue blimp with its yellow basket clearly visible. The sky transitions from the game's signature bright cartoon blue to deep electric purple where the storm meets the horizon. Scattered bokeh balls come from golden floor loot item glows on the ground. Lighting: warm golden-orange key light from the clean side, with cool electric purple rim light from the storm. This image must be instantly recognisable as Fortnite from the loot llama, storm wall, and battle bus alone.",
+      "audience": "competitive teen and young adult gamers",
+      "messages": {
+        "FruityBurst Gummies": "Drop in. Snack up. Victory Royale fuel.",
+        "Pip Robot Companion": "Drop into a new dimension. Right on your desk."
+      }
+    },
+    {
+      "game": "Roblox",
+      "style": "The bag sits on a ROBLOX AVATAR FIGURE \u2014 the iconic blocky, low-poly Roblox character with its squared-off limbs, cylindrical head, and signature 'R' on the chest, rendered photorealistically as a plastic toy. Background bokeh: the Roblox game selection screen aesthetic \u2014 multiple floating colourful game-world thumbnail portals visible as blurred glowing rectangles in the background, each a different vivid primary colour. The sky is the classic ROBLOX BRIGHT BLUE with white block-shaped clouds. On the ground surface, the iconic ROBLOX LOGO in red block letters is partially visible, slightly blurred. Bokeh balls come from the bright coloured portal frames glowing around the edges. Lighting: cheerful bright high-key daylight, very clean and saturated \u2014 the signature Roblox look. This must be unmistakeably Roblox from the blocky avatar figure and portal thumbnails.",
+      "audience": "kids and young teens, creative builders",
+      "messages": {
+        "FruityBurst Gummies": "Build your world. Fuel your imagination.",
+        "Pip Robot Companion": "Build your world. Pip powers the adventure."
+      }
+    },
+    {
+      "game": "Minecraft",
+      "style": "The bag sits on a photorealistic Minecraft GRASS BLOCK \u2014 the iconic green-topped, brown dirt-sided cube with the distinctive pixelated grass texture, rendered with real material depth and shadow. A DIAMOND SWORD with its characteristic teal pixel-art blade leans against the bag, slightly blurred. Background bokeh: a Minecraft OVERWORLD scene \u2014 stacked block mountains, birch trees made of cube leaves, and a CREEPER face visible in the midground bokeh, its iconic four-pixel green face unmistakeable. The sky is Minecraft clear blue with the distinctive flat pixel-texture clouds. Bokeh balls come from floating XP ORBS \u2014 small green glowing spheres drifting near the ground. Lighting: clean warm Minecraft daytime sun from upper left. This is already the strongest theme \u2014 lean into the creeper face in background and XP orb bokeh.",
+      "audience": "creative gamers of all ages",
+      "messages": {
+        "FruityBurst Gummies": "Craft. Build. Snack. Repeat.",
+        "Pip Robot Companion": "Craft. Explore. Pip lights the way."
+      }
+    },
+    {
+      "game": "World of Warcraft",
+      "style": "The bag sits on a HEARTHSTONE \u2014 the iconic glowing blue-and-gold hearthstone from WoW, the magical stone that teleports players home, sitting on a wooden surface, its rune glowing warmly. Background bokeh: the unmistakeable STORMWIND CATHEDRAL \u2014 the towering gothic blue-and-gold stone spires of WoW's most iconic building, massively blurred into bokeh but the distinctive pointed spire silhouette clearly readable. A HORDE BANNER \u2014 red with the golden Horde symbol \u2014 hangs in the blurred background on the right side. In the background bokeh, two FACTION-SPECIFIC FLYING MOUNTS are silhouetted against a dramatic orange-purple sky. Bokeh balls come from ambient mana wisps \u2014 floating blue glowing orbs characteristic of WoW's magical environments. Lighting: rich warm amber torchlight as key light, cool blue mana-wisp rim light. Must be instantly readable as WoW from the Stormwind spires, Horde banner, and hearthstone.",
+      "audience": "adult MMO players, nostalgic gamers",
+      "messages": {
+        "FruityBurst Gummies": "For the Horde. For the candy.",
+        "Pip Robot Companion": "Epic quests start at your desk."
+      }
+    },
+    {
+      "game": "League of Legends",
+      "style": "The bag sits on the NEXUS CRYSTAL \u2014 the iconic glowing blue-white crystalline obelisk structure at the heart of Summoner's Rift, its magical energy radiating outward. Background bokeh: SUMMONER'S RIFT from a dramatic low angle \u2014 the three-lane map's iconic INHIBITOR TOWERS are visible as large glowing blue columns in the midground bokeh. A BARON NASHOR tentacle or glowing eye is faintly visible in the dark purple background bokeh. The entire scene is bathed in the signature LoL COLOR GRADE \u2014 deep forest green-to-black ground with electric blue and teal magical energy everywhere. Minimap-style circular UI elements are softly blurred in corner bokeh. Bokeh balls come from the Nexus crystal energy, inhibitor glow, and ambient spell particles. Lighting: cool electric teal-blue key light from the Nexus below, deep purple rim from the rift atmosphere. The LoL aesthetic \u2014 dark forest, magical blue structures, ominous purple \u2014 must be instantly recognisable.",
+      "audience": "competitive young adult gamers, esports fans",
+      "messages": {
+        "FruityBurst Gummies": "Dominate the rift. Powered by FruityBurst.",
+        "Pip Robot Companion": "Master every lane. Meet your new teammate."
+      }
+    },
+    {
+      "game": "Valorant",
+      "style": "The bag sits on a RADIANITE CANISTER \u2014 the iconic glowing teal cylindrical container with the Valorant geometric diamond logo on it, a signature prop from every Valorant map. Background bokeh: the VALORANT AGENT SELECT SCREEN aesthetic \u2014 agent portrait silhouettes with their characteristic ability icons, blurred into soft glowing forms. The most recognisable element: SAGE'S HEALING ORB \u2014 a glowing teal sphere \u2014 floats near the bag, slightly blurred but clearly Valorant. The VALORANT LOGO \u2014 the V with the slash \u2014 is engraved on the floor surface beneath the bag, catching the teal light. Background shows the SPLIT MAP rooftops \u2014 red Japanese-inspired architecture with teal Radianite lighting \u2014 heavily blurred. Bokeh balls come from Radianite energy, Sage orbs, and ambient ability particles in teal and white. Lighting: stark cool-white key light, strong teal Radianite rim. Must read immediately as Valorant from the Radianite canister and teal-white color language.",
+      "audience": "competitive young adults, esports community",
+      "messages": {
+        "FruityBurst Gummies": "Clutch the round. Clutch the bag.",
+        "Pip Robot Companion": "Plan your strategy. Pip's got your back."
+      }
+    },
+    {
+      "game": "Apex Legends",
+      "style": "The bag sits on an APEX LEGENDS CARE PACKAGE \u2014 the iconic red-and-silver drop pod with flashing orange lights that falls from the sky delivering legendary loot, a universally recognised Apex prop. Background bokeh: KINGS CANYON at sunset \u2014 the iconic SKULLTOWN skull-shaped ruins are visible as a massive silhouette in the background bokeh, the giant hollow skull unmistakeable. The APEX LEGENDS JUMPMASTER COMPASS UI \u2014 the circular squad icon display \u2014 glows in the upper corner bokeh. The SKY is an extreme sunset: bright orange-to-magenta-to-deep-purple, with the distinctive Apex silhouetted clifftops. Bokeh balls come from the care package beacon light, distant squad beacon pings (blue), and fire particles. Lighting: dramatic warm orange key from the sunset, cool purple atmospheric rim. Must be instantly readable as Apex Legends from the Care Package and Skulltown skull silhouette.",
+      "audience": "action gamers, diverse young adult audience",
+      "messages": {
+        "FruityBurst Gummies": "Be Legendary. Snack Legendary.",
+        "Pip Robot Companion": "Legend starts here. On your desk."
+      }
+    },
+    {
+      "game": "Call of Duty",
+      "style": "The bag sits on a KILLSTREAK CARE PACKAGE \u2014 the iconic dark olive-green military crate with the orange parachute still attached and the red flare beacon blinking, the most recognisable prop in CoD multiplayer history. Background bokeh: NUKETOWN \u2014 the iconic CoD map with its signature two NUCLEAR FAMILY MANNEQUINS visible as blurred silhouettes in front of the 1950s houses, the suburban American street layout clearly readable. The NUCLEAR BOMB PROP \u2014 the classic yellow atomic bomb on a trolley from Nuketown \u2014 is faintly visible in the background bokeh. The sky is post-strike: grey-orange, with a mushroom cloud shape forming in the far background bokeh. Bokeh balls come from the care package beacon, tracer fire streaks, and distant explosion light. Lighting: cold grey overcast key light, warm orange fire rim light from off-screen. Must be instantly recognisable as CoD from the Killstreak care package and Nuketown mannequins.",
+      "audience": "older teen and adult gamers, military game fans",
+      "messages": {
+        "FruityBurst Gummies": "Stay in the fight. Stay fueled.",
+        "Pip Robot Companion": "Intel. Missions. Pip deploys anywhere."
+      }
+    },
+    {
+      "game": "Among Us",
+      "style": "The bag sits on THE SKELD CAFETERIA TABLE \u2014 the iconic rounded rectangular table with the signature AMONG US RED CREWMATE sitting next to the bag, its bean-shaped body, backpack, and visor unmistakeable, rendered as a cute 3D figure. A DEAD CREWMATE \u2014 the iconic ghost with its tongue sticking out \u2014 floats translucently nearby. Background bokeh: THE SKELD spaceship interior \u2014 the distinctive ROUNDED RECTANGULAR DOOR FRAMES with their glowing yellow-orange outlines, the EMERGENCY BUTTON \u2014 a large red button labelled EMERGENCY on a pedestal \u2014 visible in the midground. REACTOR CORE pipes and the signature teal-walled corridors are blurred behind. Bokeh balls come from the glowing door frames, emergency button, and ambient ship lighting. Lighting: warm white overhead cafeteria light, slight red emergency-alert tint from the right. Must be unmistakeably Among Us from the crewmate figure, ghost, and emergency button.",
+      "audience": "casual gamers, all ages, social gaming crowd",
+      "messages": {
+        "FruityBurst Gummies": "Not sus. Just delicious.",
+        "Pip Robot Companion": "Not sus. Just your smartest desk companion."
+      }
+    },
+    {
+      "game": "Pokemon",
+      "style": "The bag sits on the grass next to a POKE BALL \u2014 the iconic red-and-white sphere with the central button, photorealistically rendered as a glossy plastic object. A PIKACHU \u2014 rendered as a photorealistic plush or figure \u2014 sits on the other side of the bag, its bright yellow fur, red cheek spots, and zigzag tail clearly visible but slightly soft. Background bokeh: PALLET TOWN \u2014 the iconic starting town with its small houses and PROFESSOR OAK'S LABORATORY, the large building with its distinctive antenna silhouetted in the background bokeh. The POKEDEX \u2014 the iconic red flip device \u2014 sits on the surface nearby, partially open, screen glowing. Bokeh balls come from POKEMON SPARKLE EFFECTS \u2014 the characteristic four-pointed star sparkles that appear when Pokemon are encountered, scattered through the background. Lighting: warm golden afternoon sunlight, soft adventure-film lens flare from upper right. Must be unmistakeably Pokemon from Pikachu, the Poke Ball, Pokedex, and sparkle effects.",
+      "audience": "all ages, nostalgic fans and new players",
+      "messages": {
+        "FruityBurst Gummies": "Gotta snack em all.",
+        "Pip Robot Companion": "Catch every adventure. Starting right here."
+      }
+    }
+  ],
+  "products": [
+    {
+      "name": "FruityBurst Gummies",
+      "display_name": "FruityBurst",
+      "campaign_message": "Level up your snack game",
+      "cta": "Grab Your Pack",
+      "product_visual_spec": {
+        "description": "FruityBurst Gummies stand-up resealable pouch. Photographed with razor-sharp focus, high-gloss plastic surface, rich physical materials.",
+        "bag_shape": "Tall stand-up resealable pouch, slightly wider at the bottom. Stands upright on a surface. The bag has realistic physical weight \u2014 it sags very slightly at the top near the resealable zip, full and plump with product inside.",
+        "bag_size": "Medium snack-size sharing bag. In the frame it is large \u2014 roughly filling the center vertical third of the image so all label details are fully legible.",
+        "bag_material": "High-gloss plastic film packaging. Surface shows crisp specular highlights from the lighting. You can see slight surface texture and the reflective sheen of commercial candy packaging. The edges of the bag catch rim light.",
+        "bag_base_color": "Deep vivid cherry red (#FF2D2D) covering the majority of the front face. The red is rich and saturated \u2014 deepens to near-crimson (#CC1A1A) in the shadow areas on the sides and bottom. A broad specular highlight runs diagonally from upper-left center, showing the glossy plastic surface.",
+        "logo": "The word 'FruityBurst' in large bold rounded bubble-letter font, bright metallic golden yellow (#FFD700) with a subtle embossed appearance \u2014 the letters have a slight raised look with a thin bright highlight along the top edge. Below it, 'GUMMIES' in clean bold white all-caps sans-serif with a very thin drop shadow.",
+        "logo_position": "Centered on the upper 40% of the bag face. Always fully visible and legible.",
+        "fruit_illustration": "6-8 photorealistic-looking cartoon gummy candies rendered with translucency and gloss \u2014 red strawberry, yellow lemon, orange slice, green apple, purple grape, pink watermelon slice. They catch the light and look genuinely delicious and jewel-like. Arranged loosely across the center-lower area of the bag.",
+        "bottom_strip": "Thick golden yellow (#FFD700) band at the bottom of the bag. Bold red text: 'REAL FRUIT FLAVORS \u2022 NO ARTIFICIAL COLORS'. Clean, professional label typography.",
+        "burst_badge": "Top-right corner: bright yellow starburst badge with bold red text '12 FLAVORS'. High-contrast, clean.",
+        "reseal_strip": "White frosted resealable zip strip across the top of the bag \u2014 shows realistic plastic translucency.",
+        "consistency_instruction": "This bag must look physically identical in every single image. Same colors, same label, same proportions, same materials. It is always tack-sharp and in perfect focus. It always looks like a real physical product you could pick up off a shelf. Do not alter the bag's appearance to stylize it toward any game \u2014 the bag is always a real-world commercial product. Only the background, lighting temperature, and surface the bag rests on change between images."
+      },
+      "visual_mood": "Hyper-realistic commercial product photography. Sharp product, cinematic bokeh background, game world atmosphere."
+    },
+    {
+      "name": "Pip Robot Companion",
+      "display_name": "Pip",
+      "campaign_message": "Your desk. Your world.",
+      "cta": "Meet Pip",
+      "product_visual_spec": {
+        "description": "Pip is a small friendly desktop robot companion with a built-in projector. It sits on a desk and projects interactive games and animations onto the table surface in front of it. The robot must look identical in every image \u2014 same exact shape, colours, materials, and proportions.",
+        "overall_form": "Pip stands approximately 18cm tall. It has a rounded, friendly, slightly chubby silhouette \u2014 wider at the base and shoulders, narrowing slightly at the 'neck'. The overall shape is reminiscent of a small friendly astronaut or a soft sci-fi toy. It has a slightly front-heavy posture, leaning just a few degrees forward as if alert and attentive.",
+        "body": "The main torso is a smooth rounded rectangular box with heavily rounded corners (corner radius approximately 30% of width). It is matte white ABS plastic with a very subtle texture \u2014 not glossy, not rough. The surface catches light softly with a gentle sheen. The torso is approximately 8cm wide, 10cm tall, and 7cm deep. On the front face of the torso is a small oval chest panel inset slightly, glowing soft cyan (#00C2FF) \u2014 this is Pip's status light, showing it is active. Below this panel is a small speaker grille: a 3\u00d75 grid of tiny round holes in the white plastic.",
+        "head": "The head is a perfect sphere, approximately 7cm in diameter, made of the same matte white plastic as the body. It sits on a short 1.5cm cylindrical neck that connects to the torso with a slight tilt \u2014 the head is angled approximately 10 degrees forward, giving Pip a curious, engaged expression. The head is smooth except for two features: the face screen and the projector housing.",
+        "face_screen": "On the front of the spherical head is a rounded rectangular OLED display \u2014 approximately 5cm wide and 3.5cm tall, with heavily rounded corners (fully flush with the head surface, not protruding). The screen displays Pip's 'eyes': two large friendly circular eyes on a dark background. The eyes are bright cyan (#00C2FF) with a white specular highlight dot in each iris. The eyes have a slightly expressive quality \u2014 they appear alert and happy, with very slightly upturned inner corners. The screen has a subtle warm glow that spills onto the white head surface around it.",
+        "projector": "On the top-back of the head, positioned at approximately the 10 o'clock position when viewed from the side, is the projector housing. It is a small cylindrical protrusion \u2014 2cm diameter, 1.5cm tall \u2014 made of the same matte white plastic but with a glossy black circular lens at its tip (1.2cm diameter). A very faint cyan LED ring surrounds the base of the projector housing, indicating it is active. The projector lens catches a small bright specular highlight.",
+        "arms": "Pip has two small rounded arms extending from the upper sides of the torso. Each arm is a single smooth rounded cylinder, approximately 3cm long and 1.5cm in diameter, made of the same matte white plastic. The arms end in rounded mitten-like 'hands' \u2014 slightly flattened ovals, 2cm wide. The arms angle downward and slightly outward at approximately 30 degrees from horizontal, giving Pip a relaxed, open posture. The arm joints are slightly recessed circles on the torso sides.",
+        "base": "The base is a smooth flat disc \u2014 10cm diameter, 2cm tall \u2014 made of slightly darker cool grey plastic (#D0D0D8). Its edges are rounded. On the underside is a subtle rubber ring to prevent sliding. The base-to-body transition is a gentle curve, not a hard edge. The base sits flat on the desk surface and has a very slight shadow beneath it.",
+        "projected_display": "In front of Pip on the desk surface, the projector casts a bright rectangular game or animation projection \u2014 approximately 20cm wide and 15cm tall on the table. The projection is a vivid, saturated image with a soft warm edge glow where it meets the table. The projected content adapts to the theme of each image (game world, space, ocean etc.). The projection has a very subtle keystone correction making it slightly wider at the top edge than the bottom. The table surface shows the projection's light scattering slightly on the wood or desk material.",
+        "materials_summary": "Matte white ABS plastic (body, head, arms) with subtle soft-sheen. Cool grey plastic base (#D0D0D8). Glossy black projector lens. Cyan OLED face screen (#00C2FF). Cyan chest status panel. Small chrome-finish screws visible at arm joints and base rim \u2014 adding product credibility.",
+        "scale_and_placement": "Pip sits directly on the desk or table surface. It is always shown at roughly 'tabletop portrait' scale \u2014 large enough to see all face, projector, and arm details clearly. The projected display on the table in front of it is always visible and always adapts to the scene theme.",
+        "consistency_instruction": "Pip must look physically identical in every single image. Same spherical head, same face screen with cyan eyes, same projector on top-back of head, same white rounded body, same grey base disc, same arm shape and angle, same chest panel glow. The only things that change between images are: (1) the content projected on the table surface, which matches the theme of the scene, and (2) the lighting colour temperature and background environment. Pip itself does not change \u2014 it is always a real-world physical product in perfect focus. Do NOT stylise, cartoon-ify, pixel-ify, or alter Pip's design to match any background theme."
+      },
+      "visual_mood": "Hyper-realistic commercial product photography. Sharp product, cinematic bokeh background, playful and wonder-filled atmosphere."
+    }
+  ]
+}

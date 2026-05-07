@@ -210,9 +210,16 @@ class ImageGenerator:
         # ── SCENE ────────────────────────────────────────────────────────────
         if gaming_theme:
             game     = gaming_theme.get("game", "")
-            message  = gaming_theme.get("message", message)
             scene    = gaming_theme.get("style", "")
             audience = gaming_theme.get("audience", "")
+
+            # Support both old format (single "message") and new format (per-product "messages" dict)
+            per_product_messages = gaming_theme.get("messages", {})
+            product_name         = product.get("name", "")
+            if per_product_messages and product_name in per_product_messages:
+                message = per_product_messages[product_name]
+            else:
+                message = gaming_theme.get("message", message)
 
             scene_block = (
                 f"BACKGROUND SCENE — '{game}' game world (blurred bokeh behind sharp product):\n"

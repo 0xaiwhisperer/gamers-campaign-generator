@@ -216,7 +216,7 @@ def start_run():
                         output_path=asset_dir / f"{pname}_hero.png",
                     )
 
-                themes = product_obj.get("gaming_themes", [])
+                themes = product_obj.get("gaming_themes") or brief.get("game_worlds", [])
                 sel    = brief.get("selected_games")
                 if themes and sel:
                     themes = [t for t in themes if t["game"] in sel]

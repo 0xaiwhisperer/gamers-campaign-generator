@@ -100,7 +100,8 @@ def run_pipeline(
         else:
             logger.info("Generated new hero image")
 
-        themes = product.get("gaming_themes", [])
+        # Support both product-level gaming_themes and brief-level game_worlds
+        themes = product.get("gaming_themes") or brief.get("game_worlds", [])
         sel    = brief.get("selected_games")
         if themes and sel:
             themes = [t for t in themes if t["game"] in sel]

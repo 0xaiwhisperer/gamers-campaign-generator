@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FruityBurst · Campaign Engine</title>
+<title>ARENA DROP · Gaming Ad Engine</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
 <style>
@@ -38,6 +38,9 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .sidebar{background:var(--panel);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;overflow-y:auto;overflow-x:hidden;scrollbar-width:thin;scrollbar-color:var(--candy-yellow) transparent}
 .sidebar::-webkit-scrollbar{width:3px}
 .sidebar::-webkit-scrollbar-thumb{background:var(--candy-yellow);border-radius:2px}
+.run-history{flex:1;overflow-y:auto;min-height:80px;padding:14px 20px;scrollbar-width:thin;scrollbar-color:var(--candy-yellow) transparent}
+.run-history::-webkit-scrollbar{width:3px}
+.run-history::-webkit-scrollbar-thumb{background:var(--candy-yellow);border-radius:2px}
 .sidebar-header{padding:22px 20px 18px;border-bottom:1px solid var(--border);position:relative;overflow:hidden}
 .sidebar-header::before{content:'';position:absolute;top:-30px;left:-30px;width:200px;height:200px;background:radial-gradient(circle,rgba(255,214,10,0.1) 0%,transparent 70%);pointer-events:none}
 .logo-lockup{display:flex;align-items:center;gap:12px;margin-bottom:8px}
@@ -106,7 +109,6 @@ select option{background:var(--bg3)}
 @keyframes spin{to{transform:rotate(360deg)}}
 
 /* RUN HISTORY */
-.run-history{flex:1;overflow-y:auto;padding:14px 20px}
 .run-history-title{font-family:'Share Tech Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:3px;color:var(--text-faint);margin-bottom:10px}
 .run-item{padding:10px 12px;background:var(--bg3);border-radius:var(--radius);border:1px solid var(--border);margin-bottom:6px;cursor:pointer;transition:all 0.15s;position:relative;overflow:hidden}
 .run-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--text-faint);transition:all 0.2s}
@@ -289,13 +291,13 @@ select option{background:var(--bg3)}
   <aside class="sidebar">
     <div class="sidebar-header">
       <div class="logo-lockup">
-        <div class="logo-icon">🍬</div>
+        <div class="logo-icon">🎮</div>
         <div>
-          <div class="logo-name">FRUITYBURST</div>
-          <div class="logo-tagline">Campaign Engine v2.0</div>
+          <div class="logo-name">ARENA DROP</div>
+          <div class="logo-tagline">Gaming Campaign Engine</div>
         </div>
       </div>
-      <div class="version-chip"><div class="version-dot"></div>SYSTEM ONLINE · GPT-IMAGE-1</div>
+      <div class="version-chip"><div class="version-dot"></div>ONLINE · GPT-IMAGE-1</div>
     </div>
 
     <div class="sidebar-section">
@@ -355,14 +357,14 @@ select option{background:var(--bg3)}
     <div class="progress-bar-wrap"><div class="progress-bar" id="globalProgressBar" style="width:0%"></div></div>
     <div class="empty-state" id="emptyState">
       <div class="empty-glow"></div>
-      <div class="empty-icon-ring"><div class="empty-icon-inner">🍬</div></div>
-      <div class="empty-title">READY TO DROP</div>
-      <div class="empty-subtitle">Configure your campaign, select game worlds, then fire up the engine to generate cinematic ad creatives.</div>
+      <div class="empty-icon-ring"><div class="empty-icon-inner">🎮</div></div>
+      <div class="empty-title">READY TO DEPLOY</div>
+      <div class="empty-subtitle">Select a campaign brief, choose your game worlds, and fire up the engine to generate cinematic product ads built for gamers.</div>
       <div class="empty-hint">
         <div class="hint-chip">10 GAME WORLDS</div>
         <div class="hint-chip">3 ASPECT RATIOS</div>
         <div class="hint-chip">GPT-IMAGE-1</div>
-        <div class="hint-chip">BOKEH PHOTOGRAPHY</div>
+        <div class="hint-chip">CINEMATIC BOKEH</div>
       </div>
     </div>
   </main>
@@ -425,7 +427,9 @@ async function loadBriefProducts(filename){
     const products=brief.products||[];
     const sel=document.getElementById("productSelect");
     sel.innerHTML=`<option value="">All products (${products.length})</option>`+products.map(p=>`<option value="${p.name}">${p.name}</option>`).join("");
-    buildGameSelector(products.flatMap(p=>p.gaming_themes||[]));
+    // Support both brief-level game_worlds (new) and product-level gaming_themes (legacy)
+    const themes = brief.game_worlds || products.flatMap(p => p.gaming_themes || []);
+    buildGameSelector(themes);
   }catch(e){}
 }
 
